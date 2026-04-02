@@ -6,6 +6,7 @@ const nextConfig = {
   },
   basePath: '/ax-policy-aware-ops',
   assetPrefix: '/ax-policy-aware-ops/',
+  trailingSlash: true,
 };
 
 export default nextConfig;
