@@ -1,41 +1,42 @@
 @import "tailwindcss";
 
 @theme {
-  --color-ktds-red: #ec1c24;
-  --color-ktds-black: #111111;
-  --color-ktds-grey-dark: #1a1a1a;
-  --color-ktds-grey-light: #a7a9ac;
-  --color-ktds-grey-border: #2d2d2d;
+  --color-midas-blue: #0059ab;
+  --color-midas-black: #1a1a1a;
+  --color-midas-grey-bg: #f8fafc;
+  --color-midas-grey-border: #e2e8f0;
+  --color-midas-grey-text: #64748b;
   
-  --color-accent-cyan: #22d3ee;
-  --color-accent-green: #4ade80;
+  --color-accent-cyan: #0ea5e9;
+  --color-accent-green: #22c55e;
+  --color-accent-red: #ef4444;
   
   --font-sans: var(--font-inter), var(--font-noto-sans-kr), "Inter", "Noto Sans KR", ui-sans-serif, system-ui;
 }
 
 @layer base {
   :root {
-    --background: #111111;
-    --foreground: #dee2e6;
+    --background: #ffffff;
+    --foreground: #1a1a1a;
   }
 
   body {
-    @apply text-[var(--foreground)] bg-[var(--background)];
+    @apply text-[var(--foreground)] bg-midas-grey-bg;
     font-family: var(--font-sans);
   }
 }
 
 @layer components {
   .premium-card {
-    @apply bg-ktds-grey-dark border border-ktds-grey-border rounded-xl shadow-lg backdrop-blur-sm transition-all duration-300;
+    @apply bg-white border border-midas-grey-border rounded-xl shadow-sm hover:shadow-md transition-all duration-300;
   }
 
-  .ktds-gradient-text {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-ktds-red to-orange-500;
+  .midas-gradient-text {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-midas-blue to-cyan-600;
   }
 }
 
-/* Custom Scrollbar */
+/* Custom Scrollbar for Light Mode */
 @layer utilities {
   ::-webkit-scrollbar {
     width: 6px;
@@ -44,9 +45,9 @@
     @apply bg-transparent;
   }
   ::-webkit-scrollbar-thumb {
-    @apply bg-ktds-grey-border rounded-full;
+    @apply bg-midas-grey-border rounded-full;
   }
   ::-webkit-scrollbar-thumb:hover {
-    @apply bg-ktds-grey-light/30;
+    @apply bg-slate-300;
   }
 }
