@@ -38,40 +38,72 @@ const IncidentCard = ({ incident, isActive, onClick }: IncidentCardProps) => {
     return <div className="h-32 bg-slate-100 rounded-xl mb-3 animate-pulse"></div>;
   }
 
+  // Extract Client Name (Format: "Client - Solution")
+  const [clientName, solutionName] = incident.system_name.split(' - ');
+  const clientInitial = clientName?.charAt(0) || '?';
+  
+  // Deterministic color based on client name
+  const avatarColors = [
+    'bg-blue-500', 'bg-indigo-500', 'bg-purple-500', 'bg-pink-500', 
+    'bg-rose-500', 'bg-orange-500', 'bg-amber-500', 'bg-emerald-500', 'bg-teal-500'
+  ];
+  const colorIndex = (clientName?.length || 0) % avatarColors.length;
+  const avatarColor = avatarColors[colorIndex];
+
   return (
     <div 
       onClick={() => onClick(incident.id)}
       className={clsx(
-        "p-4 border transition-all duration-300 cursor-pointer premium-card hover:translate-x-1 mb-3 group",
-        isActive ? "border-midas-blue ring-2 ring-midas-blue/10 bg-blue-50/30" : "border-midas-grey-border"
+        "p-4 border transition-all duration-300 cursor-pointer premium-card hover:translate-x-1 mb-3 group relative overflow-hidden",
+        isActive 
+          ? "border-midas-blue ring-2 ring-midas-blue/10 bg-blue-50/50 shadow-lg" 
+          : "border-midas-grey-border bg-white"
       )}
     >
+      {isActive && (
+        <div className="absolute left-0 top-0 bottom-0 w-1 bg-midas-blue" />
+      )}
+
       <div className="flex justify-between items-start mb-3">
+        <div className="flex items-center gap-3">
+          <div className={clsx(
+            "w-10 h-10 rounded-xl flex items-center justify-center text-white font-black text-lg shadow-sm shrink-0",
+            avatarColor
+          )}>
+            {clientInitial}
+          </div>
+          <div>
+            <div className="text-[10px] text-midas-grey-text font-bold uppercase tracking-tighter mb-0.5">
+              {solutionName}
+            </div>
+            <h3 className={clsx(
+              "font-black text-sm leading-tight transition-colors",
+              isActive ? "text-midas-blue" : "text-midas-black"
+            )}>
+              {clientName}
+            </h3>
+          </div>
+        </div>
         <span className={clsx(
-          "px-2 py-1 rounded text-[10px] font-black uppercase tracking-wider border",
+          "px-2 py-0.5 rounded-full text-[9px] font-black uppercase tracking-wider border shrink-0",
           severityColors[incident.severity]
         )}>
           {severityLabels[incident.severity]}
         </span>
-        <span className="text-midas-grey-text text-xs flex items-center gap-1">
-          <Clock size={12} />
-          {formatDistanceToNow(new Date(incident.detected_at), { addSuffix: true, locale: ko })}
-        </span>
       </div>
 
-      <h3 className="font-bold text-midas-black mb-2 line-clamp-1 group-hover:text-midas-blue transition-colors">
+      <p className="text-xs font-bold text-midas-black mb-3 line-clamp-1 opacity-80 group-hover:opacity-100 transition-opacity">
         {incident.title}
-      </h3>
+      </p>
 
-      <div className="flex items-center gap-3 text-xs text-midas-grey-text">
-        <div className="flex items-center gap-1">
-          <Server size={14} />
-          {incident.system_name}
-        </div>
-        <div className="flex items-center gap-1">
-          <AlertTriangle size={14} />
+      <div className="flex items-center justify-between mt-auto pt-2 border-t border-dashed border-midas-grey-border">
+        <span className="text-[10px] text-midas-grey-text flex items-center gap-1 font-medium">
+          <Clock size={10} />
+          {formatDistanceToNow(new Date(incident.detected_at), { addSuffix: true, locale: ko })}
+        </span>
+        <span className="text-[10px] text-midas-grey-text flex items-center gap-1 font-mono opacity-60">
           #{incident.id.slice(0, 8)}
-        </div>
+        </span>
       </div>
     </div>
   );

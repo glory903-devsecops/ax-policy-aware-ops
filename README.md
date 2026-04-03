@@ -1,126 +1,48 @@
-# AX Decision Fabric
+# Midas Global Sales Ops Dashboard (AX-Powered)
 
-AX Decision Fabric은 장애, 로그, 티켓, 변경이력을 정책 기반으로 해석하여  
-설명 가능한 권고(Recommendation)와 실행 가능한 운영 워크플로우(Workflow)로 전환하는  
-AX 기반 운영 의사결정 레이어입니다.
+![FastAPI](https://img.shields.io/badge/FastAPI-005571?style=for-the-badge&logo=fastapi) ![Next.js](https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=nextdotjs) ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css) ![SQLite](https://img.shields.io/badge/SQLite-07405E?style=for-the-badge&logo=sqlite) ![Python](https://img.shields.io/badge/Python_3.9-3776AB?style=for-the-badge&logo=python) ![Playwright](https://img.shields.io/badge/Playwright-2EAD33?style=for-the-badge&logo=playwright)
 
-## 1. Background
+**Midas Global Sales Ops Dashboard**는 전 세계 100대 고객사의 장애 리스크를 실시간으로 해석하여 **'설명 가능한 권고(Explainable Recommendation)'**를 제공하는 AX(AI Transformation) 의사결정 지원 플랫폼입니다.
 
-기업의 IT 운영 현장에는 이미 많은 데이터가 존재합니다.
+---
 
-- 시스템 로그
-- 장애 티켓
-- 변경 이력
-- 자산 정보
-- 운영 정책
-- 대응 가이드(Runbook)
+## 🚀 Interactive Demo (Sales Ops Perspective)
 
-하지만 실제 의사결정은 여전히 개인의 경험과 숙련도에 크게 의존합니다.  
-그 결과 다음과 같은 문제가 반복됩니다.
+영업 담당자가 100개 이상의 글로벌 고객사 사이트에서 어떻게 장애 리스크를 관리하고 의사결정을 내리는지 보여주는 시뮬레이션 데모입니다.
 
-- 동일 장애의 재발
-- 운영 품질의 개인 편차
-- SLA 리스크 조기 인지 실패
-- 변경 후 장애의 책임 추적 어려움
-- 대응 지식의 조직 자산화 실패
+![Global Sales Ops 시연 데모](./assets/demo/global_sales_ops_demo.webp)
 
-## 2. Problem Statement
+> [!TIP]
+> **시연 하이라이트**: AECOM(글로벌 TOP 1) 장애 인지 시 AX 엔진이 즉시 'VIP 전용 비상 대응 가이드'를 도출하고 영업 담당자에게 즉시 보고 및 비상 서버 인스턴스 할당을 권고합니다.
 
-기존 시스템은 데이터를 보여주지만, 다음 행동을 제안하지는 않습니다.
+---
 
-본 프로젝트는 다음 질문에 답하기 위해 설계되었습니다.
+## 🏗️ Core Architecture & Features
 
-- 지금 이 장애는 어떤 정책 리스크를 가지는가?
-- 최근 변경 이력과 어떤 연관성이 있는가?
-- 우선적으로 어떤 대응 액션을 취해야 하는가?
-- 이 판단의 근거는 무엇인가?
-- 이 권고를 실제 워크플로우로 연결할 수 있는가?
+### 1. Global-Scale Observability (100+ Clients)
+현대건설, 삼성물산, AECOM, Vinci 등 **글로벌 100대 건설/엔지니어링 사**의 실명 데이터셋과 시나리오를 통해 실제와 유사한 고부하 모니터링 환경을 완성했습니다.
 
-## 3. Solution
+### 2. AX Recommendation Logic (VIP Focus)
+단순한 알람을 넘어 **비즈니스 임팩트**를 분석합니다:
+- **영업.VIP_고객_영향도_분석**: 주요 고객사 별 계약 가치를 기준으로 리스크 스코어링.
+- **Explainable Rationale**: "왜 이 대응이 최우선인가?"에 대한 정책 기반 근거 제시.
+- **Sales Action Guide**: "CTO 즉시 보고", "비상 리소스 전용 할당" 등 비즈니스 연속성 확보를 위한 구체적 액션 제안.
 
-AX Decision Fabric은 운영 데이터를 수집하고,
-정책 기반 분석을 수행한 뒤,
-설명 가능한 추천과 실행 가능한 운영 플로우를 생성합니다.
+### 3. Engineering Excellence (Enterprise Pro)
+- **FastAPI Backend**: SQLAlchemy(Async) 기반의 고성능 비동기 API 구축.
+- **Next.js Frontend**: 'Enterprise Pro' 수준의 고해상도 다크/라이트 테마 최적화.
+- **Verification Proof**: `pytest` 통합 테스트를 통한 200개 이상 Incident 데이터 정합성 검증 완료.
 
-핵심 기능은 다음과 같습니다.
+---
 
-- Incident 분석
-- Change correlation 분석
-- Policy evaluation
-- Recommendation 생성
-- Workflow orchestration
-- Context delivery via MCP
+## 🧪 Verification Results
 
-## 4. Core Capabilities
-
-### 4.1 Incident Intelligence
-장애 이벤트를 수집하고 중요도, 영향도, 관련 시스템을 분석합니다.
-
-### 4.2 Change Correlation
-최근 변경 이력과 장애 발생 간의 연관성을 탐지합니다.
-
-### 4.3 Policy-aware Decision
-SLA, 운영 정책, 변경 승인 정책을 기준으로 리스크를 평가합니다.
-
-### 4.4 Explainable Recommendation
-“무엇을 해야 하는가” 뿐 아니라 “왜 그렇게 판단했는가”를 함께 제공합니다.
-
-### 4.5 Executable Workflow
-권고를 알림, 승인, 조치 요청 등 실제 운영 워크플로우로 연결합니다.
-
-## 5. Architecture
-
-- FastAPI
-- Clean Architecture
-- Domain-driven design
-- Open Policy Agent (OPA)
-- Temporal Workflow
-- MCP Server
-- PostgreSQL
-
-## 6. Domain Model
-
-주요 도메인 객체는 다음과 같습니다.
-
-- Incident
-- Ticket
-- ChangeEvent
-- PolicyRule
-- PolicyEvaluation
-- Recommendation
-- WorkflowExecution
-- Evidence
-
-## 7. Why This Project
-
-이 프로젝트는 단순한 운영 대시보드가 아닙니다.  
-운영 데이터를 정책과 맥락으로 해석하여,
-사람의 경험에 의존하던 판단을 시스템 차원에서 보조하고 구조화하는 것을 목표로 합니다.
-
-즉,
-운영 자동화가 아니라
-운영 의사결정 자동화에 초점을 둡니다.
-
-## 8. Roadmap
-
-본 프로젝트는 AI 기술 도입 전에 정책 기반 AX 의사결정 시스템으로서의 정체성을 선명하게 구축하는 것을 목표로 합니다.
-
-### Phase 1: 핵심 도메인 및 API 구축
-- ERD 반영 및 DB 스키마 구축
-- Incident, ChangeEvent, Recommendation 도메인 모델 생성
-- 기초 분석 및 권고 API 구현
-
-### Phase 2: 정책 평가 엔진 연동
-- OPA(Open Policy Agent) 엔진 통합
-- SLA(`sla.rego`) 및 미승인 변경 리스크(`change_risk.rego`) 정책 구현
-
-### Phase 3: MCP 기반 운영 컨텍스트 확장
-- MCP 서버 통합을 통한 실시간 운영 맥락 공급
-- 최근 변경 이력 리소스 및 유사 장애 검색 도구 제공
-
-### Phase 4: 통합 AX 대시보드
-- 변경 이력, 정책 판정, 권고 근거를 한눈에 보여주는 통합 뷰 구현
-- 장애 상세 분석 및 의사결정 추적성 강화
+```bash
+# 통합 API 테스트 실행 결과 (100% Pass)
+tests/test_api_v1.py::test_100_incidents_data_count ✅ Total Incidents: 200 PASSED
+tests/test_api_v1.py::test_vip_recommendation_logic ✅ Found VIP Client: AECOM PASSED
+tests/test_api_v1.py::test_api_list_incidents ✅ API Response (Incidents): 200 items PASSED
+```
 
 ## 9. Expected Impact
 
