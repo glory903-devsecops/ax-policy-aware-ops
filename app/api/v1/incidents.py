@@ -2,10 +2,13 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
 from src.infrastructure.db.database import get_db
-from src.infrastructure.db.models import Incident, System
+from src.infrastructure.db.models import Incident, System, ChangeEvent
 from pydantic import BaseModel
 from typing import List
 from datetime import datetime
+
+from app.services.ax_engine import AXPolicyEngine
+from sqlalchemy import func
 
 router = APIRouter(tags=["Incidents"])
 
@@ -23,29 +26,50 @@ class IncidentRead(BaseModel):
     status: str
     detected_at: datetime
     summary: str
+    # AX Fields
+    priority_score: int
+    is_vip: bool
+    is_poc: bool
+    contract_value: float
 
     class Config:
         from_attributes = True
 
 @router.get("/incidents", response_model=List[IncidentRead])
 async def list_incidents(db: AsyncSession = Depends(get_db)):
-    # Join with System to get the name
-    stmt = select(Incident, System.name.label("system_name")).join(Incident.system).order_by(Incident.detected_at.desc())
+    # Join with System to get all details
+    stmt = select(Incident, System).join(Incident.system)
     result = await db.execute(stmt)
     rows = result.all()
     
     incidents = []
     for row in rows:
-        incident, system_name = row
+        incident, system = row
+        
+        # Calculate recurring count for scoring
+        stmt_count = select(func.count(ChangeEvent.id)).where(ChangeEvent.system_id == system.id)
+        count_result = await db.execute(stmt_count)
+        recurring_count = count_result.scalar() or 0
+        
+        # Evaluate AX Score
+        ax_insight = AXPolicyEngine.evaluate(incident, system, recurring_count)
+        
         incidents.append(IncidentRead(
             id=str(incident.id),
-            system_name=system_name,
+            system_name=system.name,
             title=incident.title,
             severity=incident.severity,
             status=incident.status,
             detected_at=incident.detected_at,
-            summary=incident.summary
+            summary=incident.summary,
+            priority_score=ax_insight["score"],
+            is_vip=system.is_vip,
+            is_poc=system.is_poc,
+            contract_value=float(system.contract_value)
         ))
+    
+    # Sort by priority score descending
+    incidents.sort(key=lambda x: x.priority_score, reverse=True)
     return incidents
 
 @router.post("/incidents", response_model=IncidentRead)

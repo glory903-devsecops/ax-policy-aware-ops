@@ -38,3 +38,10 @@ node_modules/
 .env.development.local
 .env.test.local
 .env.production.local
+
+# AI / System Logs
+.gemini/
+uvicorn.out
+next.out
+*.webp
+*.png

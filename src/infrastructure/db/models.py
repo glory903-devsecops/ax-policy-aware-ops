@@ -15,6 +15,9 @@ class System(Base):
     environment: Mapped[str] = mapped_column(String(30), nullable=False)
     owner_team: Mapped[str] = mapped_column(String(100), nullable=False)
     criticality: Mapped[str] = mapped_column(String(30), nullable=False)
+    is_vip: Mapped[bool] = mapped_column(Boolean, default=False)
+    is_poc: Mapped[bool] = mapped_column(Boolean, default=False)
+    contract_value: Mapped[float] = mapped_column(Numeric(15, 2), default=0.0)
     created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
 
     incidents: Mapped[List["Incident"]] = relationship(back_populates="system")
@@ -134,3 +137,20 @@ class WorkflowExecution(Base):
     ended_at: Mapped[Optional[datetime]] = mapped_column(DateTime)
 
     recommendation: Mapped["Recommendation"] = relationship(back_populates="workflow_executions")
+
+class ClientInquiry(Base):
+    __tablename__ = "client_inquiries"
+
+    id: Mapped[UUID] = mapped_column(primary_key=True, default=uuid4)
+    raw_text: Mapped[str] = mapped_column(Text, nullable=False)
+    
+    # AI Extracted Data (Simulation)
+    extracted_client: Mapped[Optional[str]] = mapped_column(String(100))
+    extracted_vip: Mapped[bool] = mapped_column(Boolean, default=False)
+    extracted_poc: Mapped[bool] = mapped_column(Boolean, default=False)
+    extracted_value: Mapped[float] = mapped_column(Numeric(15, 2), default=0.0)
+    extracted_severity: Mapped[str] = mapped_column(String(20), default="medium")
+    
+    status: Mapped[str] = mapped_column(String(30), default="pending") # pending, processed
+    created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
+    processed_at: Mapped[Optional[datetime]] = mapped_column(DateTime)

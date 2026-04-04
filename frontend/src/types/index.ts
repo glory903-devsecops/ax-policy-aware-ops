@@ -1,6 +1,13 @@
 export type Severity = 'low' | 'medium' | 'high' | 'critical';
 export type Status = 'open' | 'investigating' | 'resolved' | 'closed';
 
+export interface BusinessContext {
+  is_vip: boolean;
+  is_poc: boolean;
+  contract_value: number;
+  recurring_count: number;
+}
+
 export interface Incident {
   id: string;
   system_name: string;
@@ -9,36 +16,20 @@ export interface Incident {
   status: Status;
   summary?: string;
   detected_at: string;
-}
-
-export interface ChangeEvent {
-  id: string;
-  system_name: string;
-  change_type: string;
-  changed_by: string;
-  approved: boolean;
-  changed_at: string;
-  description: string;
-}
-
-export interface PolicyEvaluation {
-  policy_code: string;
-  result: 'matched' | 'violation_risk' | 'safe';
-  score: number;
-  rationale: string;
-}
-
-export interface Recommendation {
-  type: string;
-  action_text: string;
-  confidence_score: number;
-  rationale: string;
+  // Custom AX Fields for Table
+  priority_score?: number;
+  is_vip?: boolean;
+  is_poc?: boolean;
+  contract_value?: number;
 }
 
 export interface AnalysisResult {
   incident_id: string;
-  correlation_score: number;
-  related_changes: ChangeEvent[];
-  evaluations: PolicyEvaluation[];
-  recommendations: Recommendation[];
+  client_name: string;
+  priority_score: number;
+  response_level: string;
+  recommended_action: string;
+  rationale: string;
+  applied_rules: string[];
+  business_context: BusinessContext;
 }

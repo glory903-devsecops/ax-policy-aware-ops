@@ -20,4 +20,20 @@ export const api = {
     const response = await apiClient.get(`/recommendations/${incidentId}`);
     return response.data;
   },
+
+  // Inquiry/RPA Flow
+  getInquiries: async (): Promise<any[]> => {
+    const response = await apiClient.get('/inquiries');
+    return response.data;
+  },
+
+  createInquiry: async (text: string): Promise<any> => {
+    const response = await apiClient.post('/inquiries', { raw_text: text });
+    return response.data;
+  },
+
+  processInquiry: async (id: string): Promise<any> => {
+    const response = await apiClient.post(`/inquiries/${id}/process`);
+    return response.data;
+  }
 };

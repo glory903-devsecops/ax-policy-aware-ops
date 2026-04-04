@@ -1,47 +1,94 @@
 'use client';
 
 import React from 'react';
-import { LayoutDashboard, AlertCircle, ShieldCheck, Settings, History, Search } from 'lucide-react';
+import { 
+  LayoutDashboard, 
+  ShieldCheck, 
+  Settings, 
+  History, 
+  Search,
+  MessageSquare
+} from 'lucide-react';
 import { clsx } from 'clsx';
 
 interface SidebarItemProps {
   icon: React.ReactNode;
   label: string;
   active?: boolean;
+  onClick?: () => void;
 }
 
-const SidebarItem = ({ icon, label, active }: SidebarItemProps) => (
-  <div className={clsx(
-    "flex items-center gap-3 px-4 py-3 rounded-lg cursor-pointer transition-all duration-200",
-    active ? "bg-midas-blue text-white shadow-md shadow-blue-900/10" : "text-midas-grey-text hover:bg-slate-100"
-  )}>
+const SidebarItem = ({ icon, label, active, onClick }: SidebarItemProps) => (
+  <div 
+    onClick={onClick}
+    className={clsx(
+      "flex items-center gap-3 px-4 py-3 rounded-xl cursor-pointer transition-all duration-200",
+      active ? "bg-midas-blue text-white shadow-xl shadow-blue-500/20" : "text-midas-grey-text hover:bg-slate-50"
+    )}
+  >
     {icon}
-    <span className="font-semibold">{label}</span>
+    <span className="font-black text-xs uppercase tracking-tight">{label}</span>
   </div>
 );
 
-const Sidebar = () => {
+interface SidebarProps {
+  activeStep: string;
+  onStepChange: (step: any) => void;
+}
+
+const Sidebar = ({ activeStep, onStepChange }: SidebarProps) => {
   return (
-    <div className="w-64 h-screen bg-white border-r border-midas-grey-border flex flex-col p-4 fixed left-0 top-0">
-      <div className="flex items-center gap-2 px-2 py-6 mb-4">
-        <div className="w-8 h-8 bg-midas-blue rounded flex items-center justify-center font-bold text-white italic">
+    <div className="w-64 h-screen bg-white border-r border-midas-grey-border flex flex-col p-6 fixed left-0 top-0 z-50">
+      <div className="flex items-center gap-3 px-2 py-6 mb-8 group cursor-pointer" onClick={() => onStepChange('dashboard')}>
+        <div className="w-10 h-10 bg-midas-blue rounded-2xl flex items-center justify-center font-black text-white italic shadow-lg shadow-blue-500/20 group-hover:scale-110 transition-transform">
            M
         </div>
-        <span className="text-xl font-bold tracking-tight text-midas-black uppercase">
-          midas <span className="text-midas-blue font-black">AX</span>
-        </span>
+        <div className="flex flex-col">
+          <span className="text-xl font-black tracking-tighter text-midas-black uppercase leading-none">
+            midas <span className="text-midas-blue">AX</span>
+          </span>
+          <span className="text-[10px] font-black text-slate-300 uppercase tracking-widest mt-1">Decision Fabric</span>
+        </div>
       </div>
 
-      <div className="flex-1 space-y-1">
-        <SidebarItem icon={<LayoutDashboard size={20} />} label="운영 대시보드" active />
-        <SidebarItem icon={<AlertCircle size={20} />} label="장애 분석 현황" />
-        <SidebarItem icon={<History size={20} />} label="최근 변경 이력" />
-        <SidebarItem icon={<ShieldCheck size={20} />} label="운영 정책 관리" />
-        <SidebarItem icon={<Search size={20} />} label="유사 사례 검색" />
+      <div className="flex-1 space-y-2">
+        <p className="px-4 text-[9px] font-black text-slate-300 uppercase tracking-[0.2em] mb-4">Core Pipeline</p>
+        <SidebarItem 
+          icon={<LayoutDashboard size={18} />} 
+          label="의사결정 대시보드" 
+          active={activeStep === 'dashboard'} 
+          onClick={() => onStepChange('dashboard')}
+        />
+        <SidebarItem 
+          icon={<History size={18} />} 
+          label="고객 문의사항 분류" 
+          active={activeStep === 'classification'} 
+          onClick={() => onStepChange('classification')}
+        />
+        <SidebarItem 
+          icon={<MessageSquare size={18} />} 
+          label="고객 문의사항 접수" 
+          active={activeStep === 'reception'} 
+          onClick={() => onStepChange('reception')}
+        />
+        
+        <p className="px-4 text-[9px] font-black text-slate-300 uppercase tracking-[0.2em] mt-10 mb-4">AX Intelligence</p>
+        <SidebarItem 
+          icon={<ShieldCheck size={18} />} 
+          label="세일즈 정책 관리" 
+          active={activeStep === 'policy'}
+          onClick={() => onStepChange('policy')}
+        />
+        <SidebarItem 
+          icon={<Search size={18} />} 
+          label="전략적 유사 사례" 
+          active={activeStep === 'cases'}
+          onClick={() => onStepChange('cases')}
+        />
       </div>
 
-      <div className="pt-4 border-t border-midas-grey-border">
-        <SidebarItem icon={<Settings size={20} />} label="환경 설정" />
+      <div className="pt-6 border-t border-midas-grey-border">
+        <SidebarItem icon={<Settings size={18} />} label="시스템 설정" />
       </div>
     </div>
   );

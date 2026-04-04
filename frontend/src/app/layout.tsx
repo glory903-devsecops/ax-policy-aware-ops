@@ -15,9 +15,10 @@ const notoHansKr = Noto_Sans_KR({
 });
 
 export const metadata: Metadata = {
-  title: "KTDS AX Decision Fabric Dashboard",
-  description: "Advanced AI-driven IT operations decision fabric for enterprise ecosystems.",
+  title: "Midas Global Sales Ops Dashboard",
+  description: "Advanced AX-driven Sales Ops decision intelligence for global engineering ecosystems.",
 };
+
 
 export default function RootLayout({
   children,
