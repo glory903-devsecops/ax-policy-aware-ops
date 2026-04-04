@@ -1,82 +1,98 @@
-# AX Sales Decision Intelligence Platform (v1.0) 🚀
+# Midas AX: Sales Decision Intelligence Platform (v1.0) 💎
 
-마이다스아이티(Midas IT)의 영업 경쟁력을 극대화하기 위한 **'지능형 의사결정 지원 플랫폼'**입니다. 
-현장의 비정형 자연어 데이터를 AI가 해석하고, RPA가 정형화하여, 정책 기반의 최우선 순위 대응 가이드를 실시간으로 제공합니다.
-
----
-
-## 🎥 Full Pipeline Journey (Demo)
-
-영업 담당자의 목소리가 어떻게 비즈니스 지능으로 변환되는지 확인해 보세요.
-> [!TIP]
-> **접수(Reception)** -> **분류(RPA)** -> **의사결정(Dashboard)**으로 이어지는 3단계 AX 여정이 핵심입니다.
-
-![AX Full Pipeline Journey](file:///Users/glory1994/.gemini/antigravity/brain/81b7b75a-facc-46ca-9362-de1c01f2481d/midas_ax_platform_success_journey_v4_1775281814243_1775305609169.webp)
+> **"비정형 현장 지식의 데이터화(AX)를 통한 영업 기회 손실 Zero화"**
+> 
+> 마이다스아이티(Midas IT)의 DX(Digital Transformation)를 넘어 AX(AI Transformation)로 가는 핵심 전략적 자산입니다. 본 플랫폼은 현장의 비정형 메시지를 지능형 데이터로 변환하고, 기업의 통제된 정책(Policy)에 따라 자원을 최우선 배분하는 **AX Decision Fabric**을 구축합니다.
 
 ---
 
-## 🚀 Quick Start (로컬 실행 방법)
+## 📂 Project Vision & Strategy
 
-본 프로젝트는 백엔드(FastAPI)와 프론트엔드(Next.js)로 구성되어 있습니다. 각 터미널에서 아래 명령어를 실행해 주세요.
+현대 비즈니스 환경에서 영업 담당자가 수집하는 자연어 데이터는 기업의 가장 소중한 자산입니다. 하지만 대다수의 기업은 이를 정형화하지 못해 중요한 'VIP 시그널'이나 '대형 계약 리스크'를 놓치고 있습니다.
 
-### 1. 백엔드 서버 구동 (FastAPI)
+**Midas AX**는 이 문제를 3단계 지능형 루프로 해결합니다:
+1. **Intelligent Reception**: 자연어를 통해 현장 리스크 식별.
+2. **RPA Data Fabric**: AI가 비즈니스 맥락을 추출하고 ERP 그리드에 자동 동기화.
+3. **Decision Intelligence**: 정책 엔진이 실시간 대응 순위(Scoring)와 근거(Rationale) 제시.
+
+---
+
+## 🎨 Enterprise UI/UX Landscape
+
+본 플랫폼은 마이다스아이티의 `Enterprise Pro` 디자인 시스템을 준수하며, 경영진과 실무자 모두에게 직관적인 인사이트를 제공합니다.
+
+### 📊 1. Decision Intelligence Dashboard
+실시간 리스크 현황과 KPI를 관제하며, AI가 제안하는 최우선 대응 고객을 즉시 확인합니다.
+![AX Dashboard](./docs/assets/dashboard.png)
+
+### 🧩 2. RPA Classification & Extraction
+AI가 비정형 텍스트에서 **VIP 여부, 계약 규모, 심각도**를 자동 추출하여 엑셀 그리드에 기입합니다.
+![RPA Classification](./docs/assets/classification.png)
+
+### ⚙️ 3. Sales Policy & Global Intelligence
+기업의 비즈니스 룰을 관리하고, 과거 유사 성공 사례를 통해 전략적 대응 방안을 추천받습니다.
+| 세일즈 정책 관리 (AI Logic) | 전략적 유사 사례 (Intelligence) |
+| :---: | :---: |
+| ![Policies](./docs/assets/policies.png) | ![Cases](./docs/assets/cases.png) |
+
+---
+
+## 🏗️ System Architecture & Data Flow
+
+```mermaid
+graph TD
+    A[영업 현장 자연어 접수] -->|LLM 분석| B(비즈니스 메타데이터 추출)
+    B -->|RPA Bridge| C[[ERP 엑셀 그리드 자동 기입]]
+    C -->|Policy Engine| D{AX Scoring Machine}
+    D -->|VIP/PoC 가중치| E[실시간 대응 순위 산출]
+    E -->|Rationale| F(의사결정 대시보드 표출)
+    F -->|Feedback| A
+```
+
+---
+
+## 🚀 Quick Start (빠른 시연 가이드)
+
+### 1️⃣ 환경 구축 (Environment Setup)
+백엔드와 프론트엔드가 유기적으로 연동되어야 합니다.
+
+**Back-End (FastAPI)**
 ```bash
-# 프로젝트 루트 디렉토리에서 실행
-# 의존성 설치 (필요시)
+# 의존성 설치 및 서버 실행
 pip install -r requirements.txt
-
-# DB 초기화 및 서버 실행
 python3 -m uvicorn app.main:app --host 127.0.0.1 --port 8000
 ```
-- **API 문서**: http://localhost:8000/docs
 
-### 2. 프론트엔드 구동 (Next.js)
+**Front-End (Next.js)**
 ```bash
-# frontend 디렉토리로 이동
+# 디렉토리 이동 및 실행
 cd frontend
-
-# 의존성 설치 (필요시)
 npm install
-
-# 서비스 실행
 npm run dev
 ```
-- **대시보드 접속**: [http://localhost:3000](http://localhost:3000)
+
+### 2️⃣ 시연 시나리오 (Demo Workflow)
+1. **[접수]**: 사이드바에서 `고객 문의사항 접수` 클릭 후 **"현대건설 VIP, 50억 PoC 연계 건 장애 보고"** 입력.
+2. **[분류]**: `고객 문의사항 분류` 메뉴로 자동 이동되어 데이터가 엑셀 시트에 자동 기입되는 과정 확인.
+3. **[결과]**: `의사결정 대시보드`에서 현대건설이 최상단(90점)에 배치되고 판단 근거가 출력되는지 감상.
 
 ---
 
-## 📂 Core Features (v1.0 Stable)
+## 🛠️ Versioning Strategy (버전 관리 및 백업)
 
-- **의사결정 대시보드 (Decision)**: 정책 점수(점) 및 AI 대응 권고(Rationale) 확인.
-- **고객 문의사항 분류 (RPA)**: 자연어 추출 데이터를 엑셀 그리드에 자동 기입 및 승인.
-- **고객 문의사항 접수 (Reception)**: SNS/메시지 스타일의 비정형 데이터 입력창.
-- **세일즈 정책 관리 (AI Logic)**: VIP 우선, PoC 보호 등 5대 비즈니스 룰 자동 적용.
-- **전략적 유사 사례 (Intelligence)**: 과거 성공 대응 케이스 실시간 추천.
+본 플랫폼은 UI/UX 고도화 시점마다 **Snapshot Tag**를 생성하여 자산을 보존합니다.
 
----
+- **v1.0-ax-sales-pipeline**: 현장 접수-RPA-대시보드 풀 파이프라인 완성본.
+- **향후 계획**: 실시간 LLM API 연동 및 예측 분석 엔진 강화.
 
-## 🛠️ Versioning & Backup (버전 관리 가이드)
-
-본 프로젝트는 UX/UI의 지속적인 고도화를 위해 버전별 백업을 수행합니다. 
-> [!IMPORTANT]
-> **현재 안정 버전**: `v1.0-ax-sales-pipeline`
-
-### 새 버전 백업 방법 (UI/UX 개선 직후)
-기존 버전을 안전하게 보존하고 새로운 시점을 기록하려면 다음 명령어를 사용하세요.
 ```bash
-# 1. 모든 변경사항 커밋
-git add .
-git commit -m "feat: UI/UX [기능명] 개선 및 [버전명] 업데이트"
-
-# 2. 태그 생성 (스냅샷 백업)
-git tag v1.1-uiux-enhanced
-
-# 3. 깃허브 푸시
-git push origin main --tags
+# 현재 시점 백업 명령어
+git tag v1.0-ax-stable
+git push origin --tags
 ```
 
 ---
 
-## 📧 Contact & Support
-- **Project**: AX Decision Fabric for Midas IT
-- **Maintainer**: Glory Lee (@glory1994)
+## 🏆 기획 및 개발 (Midas IT AX TF)
+- **Project lead**: Glory Lee
+- **Tech Stack**: Next.js, FastAPI, SQL-Alchemy, Framer-Motion, NLP Engine.

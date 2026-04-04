@@ -45,3 +45,4 @@ uvicorn.out
 next.out
 *.webp
 *.png
+!docs/assets/*.png
