@@ -1,5 +1,8 @@
 # Midas AX: Sales Decision Intelligence Platform (v1.0) 💎
 
+[![Launch Demo](https://img.shields.io/badge/🚀%20Launch%20Midas%20AX%20Platform-0073E6?style=for-the-badge&logoColor=white)](http://localhost:3000)
+[![Simulated Journey](https://img.shields.io/badge/🎥%20Watch%20AX%20Pipeline%20Journey-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](./docs/assets/journey_v4.webp)
+
 > **"비정형 현장 지식의 데이터화(AX)를 통한 영업 기회 손실 Zero화"**
 > 
 > 마이다스아이티(Midas IT)의 DX(Digital Transformation)를 넘어 AX(AI Transformation)로 가는 핵심 전략적 자산입니다. 본 플랫폼은 현장의 비정형 메시지를 지능형 데이터로 변환하고, 기업의 통제된 정책(Policy)에 따라 자원을 최우선 배분하는 **AX Decision Fabric**을 구축합니다.
