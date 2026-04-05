@@ -1,6 +1,6 @@
 # Midas AX: Sales Decision Intelligence Platform (v1.0) 💎
 
-[![Launch Demo](https://img.shields.io/badge/🚀%20Launch%20Midas%20AX%20Platform-0073E6?style=for-the-badge&logoColor=white)](http://localhost:3000)
+[![Launch Demo](https://img.shields.io/badge/🚀%20Launch%20Midas%20AX%20Platform-0073E6?style=for-the-badge&logoColor=white)](https://glory903-devsecops.github.io/ax-policy-aware-ops/)
 [![Simulated Journey](https://img.shields.io/badge/🎥%20Watch%20AX%20Pipeline%20Journey-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](./docs/assets/journey_v4.webp)
 
 > **"비정형 현장 지식의 데이터화(AX)를 통한 영업 기회 손실 Zero화"**
