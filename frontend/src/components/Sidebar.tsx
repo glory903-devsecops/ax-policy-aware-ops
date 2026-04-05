@@ -7,7 +7,9 @@ import {
   Settings, 
   History, 
   Search,
-  MessageSquare
+  MessageSquare,
+  Terminal,
+  ExternalLink
 } from 'lucide-react';
 import { clsx } from 'clsx';
 
@@ -52,7 +54,7 @@ const Sidebar = ({ activeStep, onStepChange }: SidebarProps) => {
       </div>
 
       <div className="flex-1 space-y-2">
-        <p className="px-4 text-[9px] font-black text-slate-300 uppercase tracking-[0.2em] mb-4">Core Pipeline</p>
+        <p className="px-4 text-[9px] font-black text-slate-400 uppercase tracking-[0.2em] mb-4">Main Menu</p>
         <SidebarItem 
           icon={<LayoutDashboard size={18} />} 
           label="의사결정 대시보드" 
@@ -61,7 +63,7 @@ const Sidebar = ({ activeStep, onStepChange }: SidebarProps) => {
         />
         <SidebarItem 
           icon={<History size={18} />} 
-          label="고객 문의사항 분류" 
+          label="문의사항 리스트" 
           active={activeStep === 'classification'} 
           onClick={() => onStepChange('classification')}
         />
@@ -72,10 +74,10 @@ const Sidebar = ({ activeStep, onStepChange }: SidebarProps) => {
           onClick={() => onStepChange('reception')}
         />
         
-        <p className="px-4 text-[9px] font-black text-slate-300 uppercase tracking-[0.2em] mt-10 mb-4">AX Intelligence</p>
+        <p className="px-4 text-[9px] font-black text-slate-400 uppercase tracking-[0.2em] mt-10 mb-4">Operation Control</p>
         <SidebarItem 
           icon={<ShieldCheck size={18} />} 
-          label="세일즈 정책 관리" 
+          label="운영 규칙 관리" 
           active={activeStep === 'policy'}
           onClick={() => onStepChange('policy')}
         />
@@ -87,7 +89,12 @@ const Sidebar = ({ activeStep, onStepChange }: SidebarProps) => {
         />
       </div>
 
-      <div className="pt-6 border-t border-midas-grey-border">
+      <div className="pt-6 border-t border-midas-grey-border space-y-2">
+        <SidebarItem 
+          icon={<Terminal size={18} />} 
+          label="API 명세서 (Docs)" 
+          onClick={() => window.open('http://localhost:8000/docs', '_blank')}
+        />
         <SidebarItem icon={<Settings size={18} />} label="시스템 설정" />
       </div>
     </div>

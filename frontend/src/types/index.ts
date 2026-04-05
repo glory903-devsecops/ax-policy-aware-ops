@@ -10,26 +10,25 @@ export interface BusinessContext {
 
 export interface Incident {
   id: string;
-  system_name: string;
-  title: string;
+  client_name: string; // Unified with simulation data
+  incident_type: string;
   severity: Severity;
   status: Status;
   summary?: string;
-  detected_at: string;
-  // Custom AX Fields for Table
-  priority_score?: number;
-  is_vip?: boolean;
-  is_poc?: boolean;
-  contract_value?: number;
+  created_at: string;
+  // Custom AX Fields for Dashboard
+  score?: number;
+  priority?: string;
+  rationale?: string;
+  applied_policies?: string[];
+  vip?: boolean;
+  poc?: boolean;
+  value?: number;
 }
 
 export interface AnalysisResult {
-  incident_id: string;
-  client_name: string;
-  priority_score: number;
-  response_level: string;
-  recommended_action: string;
+  score: number;
+  priority: string;
   rationale: string;
-  applied_rules: string[];
-  business_context: BusinessContext;
+  applied_policies: string[];
 }
