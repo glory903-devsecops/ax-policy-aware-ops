@@ -43,6 +43,14 @@ node_modules/
 .gemini/
 uvicorn.out
 next.out
+uvicorn_test.log
+next_test.log
+
+# Allow assets for documentation
 *.webp
 *.png
+*.gif
 !docs/assets/*.png
+!assets/*.png
+!assets/*.gif
+!assets/*.webp

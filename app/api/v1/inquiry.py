@@ -55,7 +55,7 @@ async def list_inquiries(db: AsyncSession = Depends(get_db)):
     return result.scalars().all()
 
 @router.post("/inquiries/{inquiry_id}/process")
-async def process_inquiry(inquiry_id: str, db: AsyncSession = Depends(get_db)):
+async def process_inquiry(inquiry_id: UUID, db: AsyncSession = Depends(get_db)):
     # 1. Get Inquiry
     stmt = select(ClientInquiry).where(ClientInquiry.id == inquiry_id)
     result = await db.execute(stmt)

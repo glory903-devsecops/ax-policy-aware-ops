@@ -1,7 +1,7 @@
 # Midas AX: Sales Decision Intelligence Platform (v1.0) 💎
 
 [![Launch Demo](https://img.shields.io/badge/🚀%20Launch%20Midas%20AX%20Platform-0073E6?style=for-the-badge&logoColor=white)](https://glory903-devsecops.github.io/ax-policy-aware-ops/)
-[![Simulated Journey](https://img.shields.io/badge/🎥%20Watch%20AX%20Pipeline%20Journey-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](./docs/assets/journey_v4.webp)
+[![Simulated Journey](https://img.shields.io/badge/🎬%20View%20AX%20Pipeline%20GIF-FFCC00?style=for-the-badge&logo=giphy&logoColor=black)](./assets/ax_pipeline_ux.gif)
 
 > **"비정형 현장 지식의 데이터화(AX)를 통한 영업 기회 손실 Zero화"**
 > 
@@ -18,6 +18,12 @@
 2. **RPA Data Fabric**: AI가 비즈니스 맥락을 추출하고 ERP 그리드에 자동 동기화.
 3. **Decision Intelligence**: 정책 엔진이 실시간 대응 순위(Scoring)와 근거(Rationale) 제시.
 
+### 🎥 AX Pipeline Discovery (UX Flow)
+
+사용자가 입력한 자연어가 어떻게 정형화된 데이터로 변환되어 의사결정에 반영되는지 확인하세요.
+
+![AX Pipeline UX Journey](./assets/ax_pipeline_ux.gif)
+
 ---
 
 ## 🎨 Enterprise UI/UX Landscape
@@ -26,11 +32,11 @@
 
 ### 📊 1. Decision Intelligence Dashboard
 실시간 리스크 현황과 KPI를 관제하며, AI가 제안하는 최우선 대응 고객을 즉시 확인합니다.
-![AX Dashboard](./docs/assets/dashboard.png)
+![AX Dashboard](./assets/04.png)
 
 ### 🧩 2. RPA Classification & Extraction
 AI가 비정형 텍스트에서 **VIP 여부, 계약 규모, 심각도**를 자동 추출하여 엑셀 그리드에 기입합니다.
-![RPA Classification](./docs/assets/classification.png)
+![RPA Classification](./assets/02.png)
 
 ### ⚙️ 3. Sales Policy & Global Intelligence
 기업의 비즈니스 룰을 관리하고, 과거 유사 성공 사례를 통해 전략적 대응 방안을 추천받습니다.
