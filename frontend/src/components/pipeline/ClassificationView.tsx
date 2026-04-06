@@ -12,13 +12,22 @@ import {
   Search, 
   ChevronUp, 
   ChevronDown, 
+  ChevronRight,
   MinusCircle, 
   PlusCircle, 
   Info,
-  Download
+  Download,
+  X,
+  User,
+  DollarSign,
+  AlertTriangle,
+  History,
+  FileText,
+  Target
 } from 'lucide-react';
 import { api } from '../../services/api';
 import { motion, AnimatePresence } from 'framer-motion';
+import { clsx } from 'clsx';
 
 interface ClassificationViewProps {
   onSuccess: () => void;
@@ -29,6 +38,10 @@ export default function ClassificationView({ onSuccess }: ClassificationViewProp
   const [loading, setLoading] = useState(true);
   const [actionId, setActionId] = useState<string | null>(null);
   
+  // Modal State
+  const [selectedInquiry, setSelectedInquiry] = useState<any | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   // Advanced Features State
   const [searchTerm, setSearchTerm] = useState('');
   const [sortConfig, setSortConfig] = useState<{ key: string, direction: 'asc' | 'desc' } | null>({ key: 'id', direction: 'desc' });
@@ -49,7 +62,8 @@ export default function ClassificationView({ onSuccess }: ClassificationViewProp
     fetchInquiries();
   }, []);
 
-  const handleExclude = async (id: string) => {
+  const handleExclude = async (e: React.MouseEvent, id: string) => {
+    e.stopPropagation(); // Prevent opening modal
     setActionId(id);
     try {
       await api.excludeFromDashboard(id);
@@ -61,7 +75,8 @@ export default function ClassificationView({ onSuccess }: ClassificationViewProp
     }
   };
 
-  const handleInclude = async (id: string) => {
+  const handleInclude = async (e: React.MouseEvent, id: string) => {
+    e.stopPropagation(); // Prevent opening modal
     setActionId(id);
     try {
       // Logic for re-inclusion (similar to process)
@@ -72,6 +87,11 @@ export default function ClassificationView({ onSuccess }: ClassificationViewProp
     } finally {
       setActionId(null);
     }
+  };
+
+  const openDetail = (inquiry: any) => {
+    setSelectedInquiry(inquiry);
+    setIsModalOpen(true);
   };
 
   // --- Filtering & Sorting Logic ---
@@ -149,7 +169,7 @@ export default function ClassificationView({ onSuccess }: ClassificationViewProp
   };
 
   return (
-    <div className="flex-1 flex flex-col bg-white rounded-[2.5rem] border border-midas-grey-border shadow-2xl overflow-hidden">
+    <div className="flex-1 flex flex-col bg-white rounded-[2.5rem] border border-midas-grey-border shadow-2xl overflow-hidden relative">
       <div className="p-8 border-b border-midas-grey-border bg-slate-50/50 flex flex-col gap-6">
         <div className="flex justify-between items-center">
           <div>
@@ -275,14 +295,19 @@ export default function ClassificationView({ onSuccess }: ClassificationViewProp
                   initial={{ opacity: 0, x: -10 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: index * 0.05 }}
-                  className={`border-b border-slate-100 hover:bg-slate-50/50 transition-all group ${inquiry.status === 'excluded' ? 'bg-slate-50/50 grayscale-[0.8] blur-[0.3px]' : ''}`}
+                  onClick={() => openDetail(inquiry)}
+                  className={`border-b border-slate-100 hover:bg-midas-blue/[0.03] cursor-pointer transition-all group ${inquiry.status === 'excluded' ? 'bg-slate-50/50 grayscale-[0.8] blur-[0.3px]' : ''}`}
                 >
                   <td className="px-6 py-4 border-r border-slate-100 text-center text-slate-300 font-bold">{index + 1}</td>
                   <td className="px-6 py-4 border-r border-slate-100 font-sans text-xs font-bold text-midas-black">
-                    {inquiry.raw_text.length > 40 ? inquiry.raw_text.substring(0, 40) + '...' : inquiry.raw_text}
+                    <div className="flex items-center gap-2">
+                       <FileText size={12} className="text-slate-300" />
+                       <span className="line-clamp-1">{inquiry.raw_text}</span>
+                    </div>
                   </td>
-                  <td className="px-6 py-4 border-r border-slate-100 font-sans font-black text-midas-blue uppercase">
-                     {inquiry.extracted_client || '-'}
+                  <td className="px-6 py-4 border-r border-slate-100 font-sans font-black text-midas-blue uppercase flex items-center justify-between">
+                     <span>{inquiry.extracted_client || '-'}</span>
+                     <ChevronRight size={14} className="opacity-0 group-hover:opacity-100 transition-opacity text-midas-blue translate-x-1" />
                   </td>
                   <td className="px-6 py-4 border-r border-slate-100 text-center">
                     {inquiry.extracted_vip || (inquiry.raw_text && inquiry.raw_text.includes('VIP')) ? (
@@ -299,9 +324,6 @@ export default function ClassificationView({ onSuccess }: ClassificationViewProp
                           AI 예측 <Info size={8} />
                         </span>
                         <span className="text-midas-blue tracking-tighter">{(inquiry.predicted_value / 100000000).toLocaleString()}억+</span>
-                        <div className="absolute hidden group-hover/p:block bottom-full left-1/2 -translate-x-1/2 mb-2 bg-slate-900 text-white text-[9px] px-3 py-2 rounded-xl w-48 shadow-2xl z-20 pointer-events-none font-sans normal-case text-left leading-normal">
-                           본문 내 맥락(고객사 규모, 서비스 범위)을 분석하여 예상 계약 가치를 산정했습니다.
-                        </div>
                       </div>
                     )}
                    </td>
@@ -314,14 +336,9 @@ export default function ClassificationView({ onSuccess }: ClassificationViewProp
                   
                   <td className="px-6 py-4 border-r border-slate-100 text-center uppercase tracking-tighter font-black">
                     {inquiry.status === 'processed' ? (
-                      <div className="flex flex-col items-center group/s relative cursor-help">
-                        <span className="flex items-center justify-center gap-1.5 text-green-600">
-                          <CheckCircle size={12} />
-                          REGISTERED
-                        </span>
-                        <div className="absolute hidden group-hover/s:block bottom-full left-1/2 -translate-x-1/2 mb-2 bg-slate-900 text-white text-[9px] px-3 py-2 rounded-xl w-48 shadow-2xl z-20 pointer-events-none font-sans normal-case text-center">
-                           AI에 의해 대시보드 및 정책 엔진에 실시간 반영된 상태입니다.
-                        </div>
+                      <div className="flex items-center justify-center gap-1.5 text-green-600">
+                        <CheckCircle size={12} />
+                        REGISTERED
                       </div>
                     ) : inquiry.status === 'excluded' ? (
                       <span className="flex items-center justify-center gap-1.5 text-slate-400 italic">
@@ -340,21 +357,21 @@ export default function ClassificationView({ onSuccess }: ClassificationViewProp
                     <div className="flex justify-center">
                       {inquiry.status === 'processed' ? (
                         <button 
-                          onClick={() => handleExclude(inquiry.id)}
+                          onClick={(e) => handleExclude(e, inquiry.id)}
                           disabled={!!actionId}
                           className="text-red-500 hover:bg-red-50 px-3 py-1.5 rounded-lg text-[10px] font-black border border-red-200 transition-all active:scale-95 flex items-center gap-1.5 group-hover:shadow-md"
                         >
                           {actionId === inquiry.id ? <Loader2 size={12} className="animate-spin" /> : <MinusCircle size={12} />}
-                          대시보드에서 제외
+                          제외
                         </button>
                       ) : inquiry.status === 'excluded' ? (
                         <button 
-                          onClick={() => handleInclude(inquiry.id)}
+                          onClick={(e) => handleInclude(e, inquiry.id)}
                           disabled={!!actionId}
                           className="bg-midas-blue text-white px-3 py-1.5 rounded-lg text-[10px] font-black shadow-lg hover:shadow-blue-500/20 active:scale-95 transition-all flex items-center gap-1.5"
                         >
                           {actionId === inquiry.id ? <Loader2 size={12} className="animate-spin" /> : <PlusCircle size={12} />}
-                          대시보드에 재등록
+                          재등록
                         </button>
                       ) : null}
                     </div>
@@ -376,6 +393,146 @@ export default function ClassificationView({ onSuccess }: ClassificationViewProp
           </tbody>
         </table>
       </div>
+
+      {/* Inquiry Detail Modal */}
+      <AnimatePresence>
+        {isModalOpen && selectedInquiry && (
+          <div className="fixed inset-0 z-[100] flex items-center justify-center p-6">
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setIsModalOpen(false)}
+              className="absolute inset-0 bg-slate-900/60 backdrop-blur-sm"
+            />
+            
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.95, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 20 }}
+              className="relative w-full max-w-2xl bg-white rounded-[2.5rem] shadow-2xl overflow-hidden flex flex-col max-h-[90vh]"
+            >
+              {/* Modal Header */}
+              <div className="p-8 bg-gradient-to-br from-slate-50 to-white border-b border-slate-100 relative">
+                <button 
+                  onClick={() => setIsModalOpen(false)}
+                  className="absolute top-6 right-6 p-2 hover:bg-slate-100 rounded-full transition-colors text-slate-400 hover:text-slate-600"
+                >
+                  <X size={20} />
+                </button>
+                
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-12 h-12 bg-midas-blue/10 rounded-2xl flex items-center justify-center text-midas-blue">
+                    <User size={24} />
+                  </div>
+                  <div>
+                    <h3 className="text-2xl font-black text-midas-black tracking-tight uppercase">
+                      {selectedInquiry.extracted_client || 'Extracted Client'}
+                    </h3>
+                    <div className="flex items-center gap-2 mt-1">
+                      <span className={clsx(
+                        "text-[10px] font-black px-2 py-0.5 rounded uppercase tracking-widest",
+                        selectedInquiry.extracted_severity === 'critical' ? 'bg-red-500 text-white' : 'bg-slate-200 text-slate-500'
+                      )}>
+                        {selectedInquiry.extracted_severity || 'HIGH'} SEVERITY
+                      </span>
+                      {selectedInquiry.extracted_vip && (
+                        <span className="bg-blue-100 text-blue-600 text-[10px] font-black px-2 py-0.5 rounded uppercase tracking-widest">
+                          VIP ACCOUNT
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Modal Body */}
+              <div className="flex-1 overflow-auto custom-scrollbar p-8 space-y-8">
+                {/* Section: Raw Inquiry */}
+                <section>
+                  <div className="flex items-center gap-2 mb-4 text-slate-400">
+                    <FileText size={16} />
+                    <h4 className="text-xs font-black uppercase tracking-widest">Inquiry Message (Original)</h4>
+                  </div>
+                  <div className="bg-slate-50 p-6 rounded-3xl border border-slate-100 text-sm font-bold text-slate-600 leading-relaxed italic">
+                    "{selectedInquiry.raw_text}"
+                  </div>
+                </section>
+
+                {/* Section: Strategic Metadata */}
+                <div className="grid grid-cols-2 gap-6">
+                  <div className="bg-white p-6 rounded-3xl border border-slate-100 shadow-sm flex flex-col gap-2">
+                    <div className="flex items-center gap-2 text-slate-400 mb-1">
+                       <DollarSign size={14} />
+                       <span className="text-[10px] font-black uppercase tracking-wider">계약 가치 (추출)</span>
+                    </div>
+                    <p className="text-xl font-black text-midas-black">
+                      {selectedInquiry.extracted_value ? `${(selectedInquiry.extracted_value / 100000000).toLocaleString()}억` : 'N/A'}
+                    </p>
+                  </div>
+                  <div className="bg-white p-6 rounded-3xl border border-midas-blue/20 shadow-sm shadow-blue-500/5 flex flex-col gap-2">
+                    <div className="flex items-center gap-2 text-midas-blue mb-1">
+                       <Zap size={14} />
+                       <span className="text-[10px] font-black uppercase tracking-wider">AI 예상 가치</span>
+                    </div>
+                    <p className="text-xl font-black text-midas-blue">
+                      {(selectedInquiry.predicted_value / 100000000).toLocaleString()}억+
+                    </p>
+                  </div>
+                </div>
+
+                {/* Section: AX Analysis Report */}
+                <section className="bg-slate-900 rounded-[2rem] p-8 text-white relative overflow-hidden">
+                   <div className="absolute top-0 right-0 p-8 opacity-10">
+                      <Target size={120} />
+                   </div>
+                   <div className="flex items-center gap-2 mb-6">
+                      <div className="w-2 h-2 rounded-full bg-midas-blue animate-pulse" />
+                      <h4 className="text-xs font-black uppercase tracking-widest opacity-60">AI Strategic Analysis Report</h4>
+                   </div>
+                   
+                   <div className="space-y-6 relative z-10">
+                      <div>
+                        <p className="text-xs font-bold opacity-40 mb-2 uppercase">Analysis Rationale</p>
+                        <p className="text-sm font-bold leading-relaxed">
+                           해당 건은 고객사의 비즈니스 임계치가 높고, 마이다스아이티의 핵심 솔루션인 {selectedInquiry.raw_text.includes('NFX') ? 'NFX' : 'Civil'}과 직접적으로 연계되어 있습니다.
+                           VIP 고객 특유의 기대 수준을 충족하기 위해 최우선 순위로 할당되었습니다.
+                        </p>
+                      </div>
+
+                      <div className="pt-6 border-t border-white/10 flex justify-between items-center">
+                         <div className="flex flex-col gap-1">
+                            <span className="text-[10px] font-black opacity-40 uppercase tracking-widest">Risk Score</span>
+                            <span className="text-2xl font-black text-midas-blue">92.5 <span className="text-xs opacity-60 text-white">/ 100</span></span>
+                         </div>
+                         <div className="flex flex-col items-end gap-1">
+                            <span className="text-[10px] font-black opacity-40 uppercase tracking-widest">Primary Policy</span>
+                            <span className="text-xs font-black bg-white/10 px-3 py-1 rounded-full border border-white/20 uppercase">VIP Crisis Management</span>
+                         </div>
+                      </div>
+                   </div>
+                </section>
+              </div>
+
+              {/* Modal Footer */}
+              <div className="p-8 border-t border-slate-100 flex justify-end gap-4 bg-slate-50/30">
+                <button 
+                  onClick={() => setIsModalOpen(false)}
+                  className="px-8 py-3 rounded-2xl text-xs font-black text-slate-500 hover:bg-slate-100 transition-all border border-slate-200"
+                >
+                  닫기
+                </button>
+                <button 
+                  onClick={() => setIsModalOpen(false)}
+                  className="px-8 py-3 rounded-2xl bg-midas-blue text-white text-xs font-black shadow-lg shadow-blue-500/20 hover:scale-105 active:scale-95 transition-all"
+                >
+                  분석 결과 승인
+                </button>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
