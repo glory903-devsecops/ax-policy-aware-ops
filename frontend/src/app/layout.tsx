@@ -15,8 +15,8 @@ const notoHansKr = Noto_Sans_KR({
 });
 
 export const metadata: Metadata = {
-  title: "Midas Global Sales Ops Dashboard",
-  description: "Advanced AX-driven Sales Ops decision intelligence for global engineering ecosystems.",
+  title: "Midas AX Decision Intelligence",
+  description: "Advanced AX-driven Sales Ops decision intelligence platform for enterprise engineering ecosystems.",
 };
 
 

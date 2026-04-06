@@ -1,7 +1,9 @@
 import axios from 'axios';
 import { Incident, AnalysisResult } from '../types';
 
-const IS_PRODUCTION = typeof window !== 'undefined' && window.location.hostname.includes('github.io');
+const IS_PRODUCTION = typeof window !== 'undefined' && 
+  window.location.hostname !== 'localhost' && 
+  window.location.hostname !== '127.0.0.1';
 const API_BASE_URL = IS_PRODUCTION ? '/ax-policy-aware-ops/api/v1' : 'http://localhost:8000/api/v1';
 
 const apiClient = axios.create({
