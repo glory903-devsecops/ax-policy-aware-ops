@@ -1,107 +1,93 @@
-# Midas AX: Sales Decision Intelligence Platform (v1.0) 💎
+# Midas AX: Sales Decision Intelligence Platform (v1.4) 💎
 
 [![Launch Demo](https://img.shields.io/badge/🚀%20Launch%20Midas%20AX%20Platform-0073E6?style=for-the-badge&logoColor=white)](https://glory903-devsecops.github.io/ax-policy-aware-ops/)
-[![Simulated Journey](https://img.shields.io/badge/🎬%20View%20AX%20Pipeline%20GIF-FFCC00?style=for-the-badge&logo=giphy&logoColor=black)](./assets/ax_pipeline_ux.gif)
+[![Simulated Journey](https://img.shields.io/badge/🎬%20View%20AX%20Pipeline%20GIF-FFCC00?style=for-the-badge&logoColor=black)](./assets/ax_pipeline_ux.gif)
+[![GitHub License](https://img.shields.io/badge/License-MIT-green.svg?style=for-the-badge)](./LICENSE)
 
-> **"비정형 현장 지식의 데이터화(AX)를 통한 영업 기회 손실 Zero화"**
+> **"비정형 현장 지식의 지능형 데이터화(AX)를 통한 영업 기회 손실 Zero화"**
 > 
 > 마이다스아이티(Midas IT)의 DX(Digital Transformation)를 넘어 AX(AI Transformation)로 가는 핵심 전략적 자산입니다. 본 플랫폼은 현장의 비정형 메시지를 지능형 데이터로 변환하고, 기업의 통제된 정책(Policy)에 따라 자원을 최우선 배분하는 **AX Decision Fabric**을 구축합니다.
 
 ---
 
-## 📂 Project Vision & Strategy
+## 📂 Project Vision: Enterprise AX Edition (v1.4)
 
-현대 비즈니스 환경에서 영업 담당자가 수집하는 자연어 데이터는 기업의 가장 소중한 자산입니다. 하지만 대다수의 기업은 이를 정형화하지 못해 중요한 'VIP 시그널'이나 '대형 계약 리스크'를 놓치고 있습니다.
+현대 비즈니스 환경에서 영업 담당자가 수집하는 자연어 데이터는 기업의 가장 소중한 자산입니다. **Midas AX v1.4**는 단순한 데이터 수집을 넘어, AI가 비즈니스 가치를 판단하고 능동적으로 의사결정을 지원하는 **'Autonomous Sales Ops'** 환경을 제공합니다.
 
-**Midas AX**는 이 문제를 3단계 지능형 루프로 해결합니다:
-1. **Intelligent Reception**: 자연어를 통해 현장 리스크 식별.
-2. **RPA Data Fabric**: AI가 비즈니스 맥락을 추출하고 ERP 그리드에 자동 동기화.
-3. **Decision Intelligence**: 정책 엔진이 실시간 대응 순위(Scoring)와 근거(Rationale) 제시.
+### ✨ v1.4 Core Intelligence Features
 
-### 🎥 AX Pipeline Discovery (UX Flow)
-
-사용자가 입력한 자연어가 어떻게 정형화된 데이터로 변환되어 의사결정에 반영되는지 확인하세요.
-
-![AX Pipeline UX Journey](./assets/ax_pipeline_ux.gif)
+1.  **AX-First Autonomous Pipeline**: 
+    - 자연어 접수 즉시 AI가 메타데이터를 추출하고 대시보드에 자동 등록합니다. 
+    - 불필요한 데이터는 사용자가 선택적으로 제외(Opt-out)할 수 있는 하이브리드 통제권을 제공합니다.
+2.  **Intelligent Value Prediction (AI 예측)**: 
+    - 명시적인 금액 정보가 없는 문의라도 AI가 고객사 규모, VIP 여부, 프로젝트 성격을 분석하여 예상 계약 가치를 산출합니다.
+3.  **Enterprise Search & Sorting**: 
+    - 수백 개의 고객 문의 중 핵심 리스크를 즉시 찾을 수 있는 전역 검색 및 실시간 컬럼 정렬 기능을 탑재했습니다.
+4.  **Premium Detail Viewer (Strategic Report)**: 
+    - 정형화된 데이터 뒤에 숨겨진 AI의 전략적 분석 근거(Rationale)를 시각화된 모달 인터페이스로 제공합니다.
+5.  **Audit & Compliance**: 
+    - ERP 연동 및 보고를 위한 CSV 데이터 내보내기(Export) 기능을 지원하여 데이터 자산화를 돕습니다.
+6.  **Backend Status Monitoring**: 
+    - 사이드바 내 Swagger/Redocs 통합 링크를 통해 실시간 백엔드 상태와 API 명세를 상시 확인할 수 있습니다.
 
 ---
 
-## 🎨 Enterprise UI/UX Landscape
+## 🎨 Professional Analytics UI
 
-본 플랫폼은 마이다스아이티의 `Enterprise Pro` 디자인 시스템을 준수하며, 경영진과 실무자 모두에게 직관적인 인사이트를 제공합니다.
+본 플랫폼은 마이다스아이티의 `Enterprise Pro` 디자인 시스템을 준수하며, 경영진에게는 통찰을, 실무자에게는 효율을 제공합니다.
 
-### 📊 1. Decision Intelligence Dashboard
-실시간 리스크 현황과 KPI를 관제하며, AI가 제안하는 최우선 대응 고객을 즉시 확인합니다.
+### 📊 1. AI Decision Dashboard
+실시간 리스크 정렬 및 AI가 제안하는 최우선 대응 고객을 다차원(VIP, PoC, 계약가치)으로 관제합니다.
 ![AX Dashboard](./assets/04.png)
 
-### 🧩 2. RPA Classification & Extraction
-AI가 비정형 텍스트에서 **VIP 여부, 계약 규모, 심각도**를 자동 추출하여 엑셀 그리드에 기입합니다.
-![RPA Classification](./assets/02.png)
-
-### ⚙️ 3. Sales Policy & Global Intelligence
-기업의 비즈니스 룰을 관리하고, 과거 유사 성공 사례를 통해 전략적 대응 방안을 추천받습니다.
-| 세일즈 정책 관리 (AI Logic) | 전략적 유사 사례 (Intelligence) |
-| :---: | :---: |
-| ![Policies](./docs/assets/policies.png) | ![Cases](./docs/assets/cases.png) |
+### 🧩 2. Inquiry Management & Extraction
+AI가 비정형 텍스트에서 데이터를 자동 추출하고, 전략적 가치를 분석하는 상세 모달을 제공합니다.
+![Inquiry Detail](./docs/assets/inquiry_detail.png)
 
 ---
 
-## 🏗️ System Architecture & Data Flow
+## 🏗️ System Architecture: The AX Loop
 
 ```mermaid
 graph TD
-    A[영업 현장 자연어 접수] -->|LLM 분석| B(비즈니스 메타데이터 추출)
-    B -->|RPA Bridge| C[[ERP 엑셀 그리드 자동 기입]]
+    A[영업 현장 자연어 접수] -->|AI NLP| B(Metadata Extraction)
+    B -->|Autonomous Registration| C[[Decision Dashboard]]
     C -->|Policy Engine| D{AX Scoring Machine}
-    D -->|VIP/PoC 가중치| E[실시간 대응 순위 산출]
-    E -->|Rationale| F(의사결정 대시보드 표출)
-    F -->|Feedback| A
+    D -->|Contract Value Prediction| E[Priority Score Allocation]
+    E -->|Strategic Rationale| F(Premium Detail Modal)
+    F -->|Manual Opt-out| G[Data Clean-up]
+    G -->|Feedback Loop| A
 ```
 
 ---
 
-## 🚀 Quick Start (빠른 시연 가이드)
+## 🚀 Deployment & Demo (시연 가이드)
 
-### 1️⃣ 환경 구축 (Environment Setup)
-백엔드와 프론트엔드가 유기적으로 연동되어야 합니다.
+### 🌐 Live Demo (GitHub Pages)
+본 프로젝트는 **High-Fidelity Simulation Engine**을 탑재하고 있어, 백엔드 서버 없이도 실시간 AI 분석 경험을 웹에서 즉시 체험할 수 있습니다.
+👉 **[Midas AX 데모 사이트 바로가기](https://glory903-devsecops.github.io/ax-policy-aware-ops/)**
 
-**Back-End (FastAPI)**
+### 💻 Local Setup
 ```bash
-# 의존성 설치 및 서버 실행
-pip install -r requirements.txt
-python3 -m uvicorn app.main:app --host 127.0.0.1 --port 8000
-```
+# 1. Backend (FastAPI)
+cd backend && pip install -r requirements.txt
+python3 -m uvicorn app.main:app --port 8000
 
-**Front-End (Next.js)**
-```bash
-# 디렉토리 이동 및 실행
-cd frontend
-npm install
-npm run dev
-```
-
-### 2️⃣ 시연 시나리오 (Demo Workflow)
-1. **[접수]**: 사이드바에서 `고객 문의사항 접수` 클릭 후 **"현대건설 VIP, 50억 PoC 연계 건 장애 보고"** 입력.
-2. **[분류]**: `고객 문의사항 분류` 메뉴로 자동 이동되어 데이터가 엑셀 시트에 자동 기입되는 과정 확인.
-3. **[결과]**: `의사결정 대시보드`에서 현대건설이 최상단(90점)에 배치되고 판단 근거가 출력되는지 감상.
-
----
-
-## 🛠️ Versioning Strategy (버전 관리 및 백업)
-
-본 플랫폼은 UI/UX 고도화 시점마다 **Snapshot Tag**를 생성하여 자산을 보존합니다.
-
-- **v1.0-ax-sales-pipeline**: 현장 접수-RPA-대시보드 풀 파이프라인 완성본.
-- **향후 계획**: 실시간 LLM API 연동 및 예측 분석 엔진 강화.
-
-```bash
-# 현재 시점 백업 명령어
-git tag v1.0-ax-stable
-git push origin --tags
+# 2. Frontend (Next.js)
+cd frontend && npm install && npm run dev
 ```
 
 ---
 
-## 🏆 기획 및 개발 (Midas IT AX TF)
-- **Project lead**: Glory Lee
-- **Tech Stack**: Next.js, FastAPI, SQL-Alchemy, Framer-Motion, NLP Engine.
+## 🛠️ Release Journey
+
+- **v1.4 (Current)**: Enterprise Detail Modal, 정렬/검색 고도화, 자동화 파이프라인 완성.
+- **v1.3**: AI 예측 엔진 도입 및 CSV 내보내기 구현.
+- **v1.0**: 기본 수집-분류-대시보드 파이프라인 구축.
+
+---
+
+## 🏆 Development Team
+- **Project Lead**: Glory Lee
+- **Specialized in**: Next.js (Frontend), FastAPI (Backend), PostgreSQL, AI Analysis.
+- **Design Philosophy**: Midas Blue Branding, Symmetric Grid, Premium Analytics UX.
