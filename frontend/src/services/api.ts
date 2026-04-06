@@ -27,20 +27,32 @@ const MOCK_ANALYSIS: Record<string, AnalysisResult> = {
   'hd-1': {
     score: 98,
     priority: 'critical',
+    response_level: 'IMMEDIATE',
     rationale: '현대건설은 마이다스아이티의 최상위 전략 파트너이며, 현재 50억 규모의 차세대 교량 설계 PoC가 진행 중입니다. 해석 엔진 이상은 PoC 수주 실패로 이어질 수 있으므로 본사 기술지원팀의 즉각적인 현장 파견을 권장합니다.',
-    applied_policies: ['VIP 고객 고심각 장애 대응 정책 (+40)', 'PoC 리스크 방어 정책 (+30)', '대형 계약 (50.0억) 가중치 정책 (+20)', '전략적 신규 기술 도입 보호 (+8)']
+    applied_policies: ['VIP 고객 고심각 장애 대응 정책 (+40)', 'PoC 리스크 방어 정책 (+30)', '대형 계약 (50.0억) 가중치 정책 (+20)'],
+    applied_rules: ['VIP-CRISIS-MANAGE', 'POC-RISK-SHIELD', 'LARGE-CONTRACT-BOOST'],
+    business_context: { contract_value: 5000000000, recurring_count: 1 },
+    recommended_action: '본사 기술지원팀 즉각 현장 파견 및 PoC 일정 재조율'
   },
   'ss-1': {
     score: 85,
     priority: 'high',
+    response_level: 'URGENT',
     rationale: '삼성물산은 안정적인 매출 기여를 유지하는 주요 고객사입니다. 라이선스 인증 장애는 설계 실무의 생산성을 즉각 저하시키므로 원격 지원팀을 통한 빠른 복구가 필요합니다.',
-    applied_policies: ['주요 고객사 가용성 보장 정책 (+40)', '라이선스 긴급 복구 정책 (+25)', '계약 규모 (12.0억) 자동 보정 (+20)']
+    applied_policies: ['주요 고객사 가용성 보장 정책 (+40)', '라이선스 긴급 복구 정책 (+25)', '계약 규모 (12.0억) 자동 보정 (+20)'],
+    applied_rules: ['MAJOR-CLIENT-STABLE', 'LICENSE-FAST-TRACK'],
+    business_context: { contract_value: 1200000000, recurring_count: 3 },
+    recommended_action: '원격 기술 지원팀 할당 및 2시간 이내 복구 완료'
   },
   'ae-1': {
     score: 92,
     priority: 'critical',
+    response_level: 'IMMEDIATE',
     rationale: 'AECOM은 글로벌 시장 확대를 위한 핵심 고객입니다. 시뮬레이션 서버 지연은 글로벌 동시 협업 환경에 치명적이므로 클라우드 리소스 임시 증설 및 서버 최적화를 즉시 검토하십시오.',
-    applied_policies: ['글로벌 전략 고객 우대 정책 (+45)', '서버 가용성 품질 정책 (+25)', '글로벌 협업 리스크 제어 (+22)']
+    applied_policies: ['글로벌 전략 고객 우대 정책 (+45)', '서버 가용성 품질 정책 (+25)', '글로벌 협업 리스크 제어 (+22)'],
+    applied_rules: ['GLOBAL-STRATEGIC-CARE', 'SERVER-PERF-POLICY'],
+    business_context: { contract_value: 2500000000, recurring_count: 1 },
+    recommended_action: '클라우드 리소스 즉시 증설 및 인프라 최적화 리포트 제공'
   }
 };
 
@@ -74,8 +86,12 @@ export const api = {
       return {
         score: 75,
         priority: 'high',
+        response_level: 'MONITORING',
         rationale: '새로운 시스템 문의에 대해 AI가 비즈니스 맥락을 분석했습니다. 계약 규모 및 VIP 여부를 고려하여 우선순위가 높게 책정되었습니다.',
-        applied_policies: ['신규 리스크 탐지 정책 (+20)', '잠재적 영업 기회 보호 정책 (+15)']
+        applied_policies: ['신규 리스크 탐지 정책 (+20)', '잠재적 영업 기회 보호 정책 (+15)'],
+        applied_rules: ['NEW-RISK-DETECT', 'OPP-PROTECTION'],
+        business_context: { contract_value: 500000000, recurring_count: 0 },
+        recommended_action: '담당 세일즈 매니저 상황 전파 및 모니터링 강화'
       };
     }
   },

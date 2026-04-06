@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { AlertTriangle, Clock, Server } from 'lucide-react';
+import { Clock } from 'lucide-react';
 import { Incident, Severity } from '../types';
 import { clsx } from 'clsx';
 import { formatDistanceToNow } from 'date-fns';
@@ -38,8 +38,15 @@ const IncidentCard = ({ incident, isActive, onClick }: IncidentCardProps) => {
     return <div className="h-32 bg-slate-100 rounded-xl mb-3 animate-pulse"></div>;
   }
 
-  // Extract Client Name (Format: "Client - Solution")
-  const [clientName, solutionName] = incident.system_name.split(' - ');
+  // Handle Client & Solution Name Mapping
+  const rawClientName = incident.client_name || 'Unknown Client';
+  const solutionName = incident.incident_type.includes(' - ') 
+    ? incident.incident_type.split(' - ')[0] 
+    : 'System Resource';
+  const clientName = incident.incident_type.includes(' - ')
+    ? rawClientName
+    : rawClientName;
+
   const clientInitial = clientName?.charAt(0) || '?';
   
   // Deterministic color based on client name
@@ -93,13 +100,13 @@ const IncidentCard = ({ incident, isActive, onClick }: IncidentCardProps) => {
       </div>
 
       <p className="text-xs font-bold text-midas-black mb-3 line-clamp-1 opacity-80 group-hover:opacity-100 transition-opacity">
-        {incident.title}
+        {incident.incident_type}
       </p>
 
       <div className="flex items-center justify-between mt-auto pt-2 border-t border-dashed border-midas-grey-border">
         <span className="text-[10px] text-midas-grey-text flex items-center gap-1 font-medium">
           <Clock size={10} />
-          {formatDistanceToNow(new Date(incident.detected_at), { addSuffix: true, locale: ko })}
+          {formatDistanceToNow(new Date(incident.created_at), { addSuffix: true, locale: ko })}
         </span>
         <span className="text-[10px] text-midas-grey-text flex items-center gap-1 font-mono opacity-60">
           #{incident.id.slice(0, 8)}

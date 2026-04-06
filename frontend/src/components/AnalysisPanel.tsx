@@ -4,7 +4,6 @@ import React from 'react';
 import { 
   ShieldCheck, 
   Lightbulb, 
-  AlertCircle, 
   Zap, 
   ChevronRight, 
   CheckCircle2,
@@ -20,7 +19,7 @@ interface AnalysisPanelProps {
 }
 
 const AnalysisPanel = ({ result }: AnalysisPanelProps) => {
-  const isHighRisk = result.priority_score >= 70;
+  const isHighRisk = (result.score || 0) >= 70;
   
   return (
     <motion.div 
@@ -41,27 +40,27 @@ const AnalysisPanel = ({ result }: AnalysisPanelProps) => {
                 AX Policy Evaluation
               </span>
             </div>
-            <h2 className="text-2xl font-black text-midas-black tracking-tight tracking-tighter">의사결정 판단 지능</h2>
+            <h2 className="text-2xl font-black text-midas-black tracking-tight">의사결정 판단 지능</h2>
           </div>
           <div className="text-right">
             <div className={clsx(
               "text-5xl font-black mb-1 font-mono",
               isHighRisk ? "text-red-600" : "text-midas-blue"
             )}>
-              {result.priority_score}<span className="text-xl opacity-40 ml-1 leading-none">점</span>
+              {result.score}<span className="text-xl opacity-40 ml-1 leading-none">점</span>
             </div>
             <div className={clsx(
               "text-[10px] font-black uppercase px-2 py-0.5 rounded inline-block",
               isHighRisk ? "bg-red-600 text-white" : "bg-midas-blue text-white"
             )}>
-              {result.response_level}
+              {result.response_level || (isHighRisk ? 'IMMEDIATE' : 'MONITORING')}
             </div>
           </div>
         </div>
 
         {/* Applied Rules Breadcrumbs */}
         <div className="flex flex-wrap gap-2">
-          {result.applied_rules.map((rule, i) => (
+          {(result.applied_rules || result.applied_policies || []).map((rule, i) => (
             <span key={i} className="text-[10px] font-bold text-midas-grey-text bg-white border border-midas-grey-border px-2.5 py-1 rounded-full shadow-sm">
               {rule}
             </span>
@@ -87,27 +86,29 @@ const AnalysisPanel = ({ result }: AnalysisPanelProps) => {
         </section>
 
         {/* Business Context Section */}
-        <section>
-          <div className="flex items-center gap-2 mb-4 text-midas-black/40">
-            <Users size={16} />
-            <h3 className="text-[11px] font-black uppercase tracking-widest">Business Context</h3>
-          </div>
-          <div className="grid grid-cols-2 gap-3">
-            <div className="p-4 bg-white border border-midas-grey-border rounded-2xl flex flex-col items-center text-center">
-              <span className="text-[10px] font-black text-midas-grey-text uppercase mb-1">계약 가치</span>
-              <span className="text-lg font-black text-midas-black flex items-center gap-1">
-                <DollarSign size={14} className="text-midas-blue" />
-                {result.business_context.contract_value / 100000000}억
-              </span>
+        {result.business_context && (
+          <section>
+            <div className="flex items-center gap-2 mb-4 text-midas-black/40">
+              <Users size={16} />
+              <h3 className="text-[11px] font-black uppercase tracking-widest">Business Context</h3>
             </div>
-            <div className="p-4 bg-white border border-midas-grey-border rounded-2xl flex flex-col items-center text-center">
-              <span className="text-[10px] font-black text-midas-grey-text uppercase mb-1">반복 장애</span>
-              <span className="text-lg font-black text-midas-black">
-                {result.business_context.recurring_count}회
-              </span>
+            <div className="grid grid-cols-2 gap-3">
+              <div className="p-4 bg-white border border-midas-grey-border rounded-2xl flex flex-col items-center text-center">
+                <span className="text-[10px] font-black text-midas-grey-text uppercase mb-1">계약 가치</span>
+                <span className="text-lg font-black text-midas-black flex items-center gap-1">
+                  <DollarSign size={14} className="text-midas-blue" />
+                  {(result.business_context.contract_value / 100000000).toLocaleString()}억
+                </span>
+              </div>
+              <div className="p-4 bg-white border border-midas-grey-border rounded-2xl flex flex-col items-center text-center">
+                <span className="text-[10px] font-black text-midas-grey-text uppercase mb-1">반복 리스크</span>
+                <span className="text-lg font-black text-midas-black">
+                  {result.business_context.recurring_count}회
+                </span>
+              </div>
             </div>
-          </div>
-        </section>
+          </section>
+        )}
 
         {/* Recommended Action Card */}
         <section>
@@ -119,13 +120,13 @@ const AnalysisPanel = ({ result }: AnalysisPanelProps) => {
              <div className="absolute -top-10 -right-10 w-40 h-40 bg-white/10 rounded-full blur-3xl transition-all group-hover:scale-150" />
              <div className="flex flex-col gap-4 relative z-10">
                 <h4 className="text-xl font-black leading-tight tracking-tight">
-                  {result.recommended_action}
+                  {result.recommended_action || 'AI 최적 권고 대응 수립 중...'}
                 </h4>
                 <p className="text-white/60 text-[11px] font-bold leading-relaxed">
-                  마이다스아이티 AX 영업 정책 가이드라인 Section 4.2에 따라 정의된 최적 권고 액션입니다.
+                  마이다스아이티 AX 영업 정책 가이드라인에 따라 정의된 최적 권고 액션입니다.
                 </p>
                 <button className="mt-4 w-full bg-white text-midas-blue py-3 rounded-2xl font-black text-sm flex items-center justify-center gap-2 hover:bg-slate-50 transition-colors shadow-lg">
-                  세일즈 리더 보고 실행
+                  전략 리더 보고 실행
                   <ChevronRight size={16} />
                 </button>
              </div>
@@ -142,7 +143,7 @@ const AnalysisPanel = ({ result }: AnalysisPanelProps) => {
           </div>
           <div className="flex items-center gap-1.5 opacity-50">
             <div className="w-1.5 h-1.5 rounded-full bg-slate-300" />
-            Sandbox Mode
+            Strategic Intelligence Mode
           </div>
         </div>
         <span className="text-[10px] font-black text-midas-black/20 italic tracking-widest uppercase">Midas AX Intelligence</span>

@@ -2,8 +2,6 @@ export type Severity = 'low' | 'medium' | 'high' | 'critical';
 export type Status = 'open' | 'investigating' | 'resolved' | 'closed';
 
 export interface BusinessContext {
-  is_vip: boolean;
-  is_poc: boolean;
   contract_value: number;
   recurring_count: number;
 }
@@ -31,4 +29,9 @@ export interface AnalysisResult {
   priority: string;
   rationale: string;
   applied_policies: string[];
+  // Extended fields for rich UI (AnalysisPanel)
+  response_level?: string;
+  applied_rules?: string[];
+  business_context?: BusinessContext;
+  recommended_action?: string;
 }
